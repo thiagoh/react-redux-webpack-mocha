@@ -1,13 +1,11 @@
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const helpers = require('./helpers');
 
 module.exports = {
   entry: {
-    vendor: ['./src/vendor.ts'],
-    polyfills: ['babel-polyfill', './src/polyfills.ts'],
-    app: './src/index.js',
+    // bundle: "./src/index.js",
+    test: './test/test.js',
   },
   output: {
     path: __dirname + '/build',
@@ -17,7 +15,7 @@ module.exports = {
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   resolveLoader: {
     modules: ['node_modules'],
@@ -52,15 +50,11 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new CheckerPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['app', 'vendor', 'polyfills'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      // inject: false,
-      template: './template.html',
-    }),
-  ],
+  plugins: [new CheckerPlugin()],
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './',
+  },
+  target: 'node', // webpack should emit node.js compatible code
+  externals: [nodeExternals()], // in order to ignore all modules in node_modules folder from bundling
 };
