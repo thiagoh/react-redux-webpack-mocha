@@ -8,9 +8,7 @@
     "build": "webpack --display-error-details --progress",
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:w": "npm run build && mocha build/test.js",
-    "test:ww": "mocha-webpack --full-trace --require setup.js --webpack-config webpack-config.test.js",
-    "test:www": "mocha-webpack --full-trace --require setup.js --webpack-config webpack.config.js",
+    "test:w": "mocha-webpack --watch --full-trace --require ./test/setup.js --webpack-config webpack.config.js",
     "test:watch": "npm run test -- --watch"
   },
   "author": "",

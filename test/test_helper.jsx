@@ -8,15 +8,10 @@ import jsdom from 'jsdom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
+import { window } from './setup';
 import reducers from '../src/reducers';
 
-const { JSDOM } = jsdom;
-const { window } = new JSDOM('<!doctype html><html><body></body></html>');
-global.document = window.document;
-global.window = global.document.defaultView;
-global.navigator = global.window.navigator;
 const $ = _$(window);
-window.console = global.console;
 
 chaiJquery(chai, chai.util, _$);
 
