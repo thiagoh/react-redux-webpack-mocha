@@ -11,8 +11,6 @@ import { createStore } from 'redux';
 import { window } from './setup';
 import reducers from '../src/reducers';
 
-const $ = _$(window);
-
 chaiJquery(chai, chai.util, _$);
 
 const renderComponent = (ComponentClass, props = {}, state = {}) => {
@@ -21,7 +19,11 @@ const renderComponent = (ComponentClass, props = {}, state = {}) => {
       <ComponentClass {...props} />
     </Provider>
   );
-  return _$(ReactDOM.findDOMNode(componentInstance));
+  return ReactDOM.findDOMNode(componentInstance);
+};
+
+const jqComponent = component => {
+  return _$(component);
 };
 
 _$.fn.simulate = function(eventName, value) {
@@ -31,4 +33,4 @@ _$.fn.simulate = function(eventName, value) {
   TestUtils.Simulate[eventName](this[0]);
 };
 
-export { renderComponent, expect };
+export { renderComponent, jqComponent, expect };
