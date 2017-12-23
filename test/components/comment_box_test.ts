@@ -1,9 +1,12 @@
+import { Component } from 'react';
+import { Provider } from 'react-redux';
 import { renderComponent, jqComponent, expect } from '../test_helper';
-import CommentBox from '../../src/components/comment_box';
+import { CommentBox, ConnectedCommentBox } from '../../src/components/comment_box';
+import * as c from '../../src/components/comment_box';
 import { JQueryExtended } from '../types';
 
 describe('CommentBox', () => {
-  let component: CommentBox;
+  let component: Component;
   let jqElement: JQueryExtended;
 
   beforeEach(() => {

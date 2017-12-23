@@ -15,13 +15,18 @@
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "typeRoots": [
-      "node_modules/@types/"
+      "node_modules/@types/",
+      "src/"
     ],
     "types": [
       "core-js",
       "node",
       "jquery",
       "mocha",
+      "react",
+      "react-dom",
+      "react-redux",
+      "redux",
       "chai",
       "chai-jquery",
     ]

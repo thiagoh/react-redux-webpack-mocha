@@ -12,20 +12,22 @@ import { createStore } from 'redux';
 import { window } from './setup';
 import { JQueryExtended } from './types';
 import reducers from '../src/reducers';
+import { ComponentElement } from 'react';
 
 chaiJquery(chai, chai['util'], _$);
 
-const renderComponent = (ComponentClass, props = {}, state = {}) => {
+function renderComponent<T>(ComponentClass, props = {}, state = {}): React.Component {
   const componentInstance = TestUtils.renderIntoDocument(
     <Provider store={createStore(reducers, state)}>
       <ComponentClass {...props} />
     </Provider>
-  );
-  return ReactDOM.findDOMNode(componentInstance);
-};
+  ) as React.Component;
+
+  return componentInstance;
+}
 
 const jqComponent = (component): JQueryExtended => {
-  return _$(component) as JQueryExtended;
+  return _$(ReactDOM.findDOMNode(component)) as JQueryExtended;
 };
 
 _$.fn['simulate'] = function(eventName, value) {
