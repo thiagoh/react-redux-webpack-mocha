@@ -43,6 +43,8 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
+    "@types/chai": "^4.0.10",
+    "@types/chai-jquery": "^1.1.35",
     "babel-polyfill": "^6.26.0",
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^3.10.1",

@@ -1,9 +1,10 @@
 import { renderComponent, jqComponent, expect } from '../test_helper';
 import CommentBox from '../../src/components/comment_box';
+import { JQueryExtended } from '../types';
 
 describe('CommentBox', () => {
-  let component;
-  let jqElement;
+  let component: CommentBox;
+  let jqElement: JQueryExtended;
 
   beforeEach(() => {
     component = renderComponent(CommentBox);
