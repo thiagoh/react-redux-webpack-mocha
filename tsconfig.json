@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "jsx": "react",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": [
+      "node_modules/@types/"
+    ],
+    "types": [
+      "core-js",
+      "node",
+      "jquery",
+      "mocha",
+      "chai",
+      "chai-jquery",
+    ]
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "build",
+    "node_modules",
+    "**/*-aot.ts"
+  ]
+}

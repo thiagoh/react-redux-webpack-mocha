@@ -1,4 +1,6 @@
 const nodeExternals = require('webpack-node-externals');
+const { CheckerPlugin } = require('awesome-typescript-loader');
+const helpers = require('./helpers');
 
 module.exports = {
   entry: {
@@ -10,21 +12,22 @@ module.exports = {
     publicPath: '/',
     filename: '[name].js',
   },
+  // Enable sourcemaps for debugging webpack's output.
+  devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   resolveLoader: {
     modules: ['node_modules'],
   },
   module: {
     rules: [
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: [
-          // {
-          //   loader: "mocha-loader"
-          // },
           {
             loader: 'babel-loader',
             options: {
@@ -33,8 +36,21 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loaders: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              configFileName: helpers.root('tsconfig.json'),
+            },
+          },
+        ],
+      },
     ],
   },
+  plugins: [new CheckerPlugin()],
   devServer: {
     historyApiFallback: true,
     contentBase: './',
