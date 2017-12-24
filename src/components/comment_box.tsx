@@ -9,11 +9,11 @@ export class CommentBox extends Component<{}, { comment: string }> {
     this.state = { comment: '' };
   }
 
-  handleChange(event) {
+  public handleChange(event) {
     this.setState({ comment: event.target.value });
   }
 
-  handleSubmit(event) {
+  public handleSubmit(event) {
     event.preventDefault();
 
     // this.props.saveComment(this.state.comment);

@@ -6,12 +6,15 @@ import * as c from '../../src/components/comment_box';
 import { JQueryExtended } from '../types';
 
 describe('CommentBox', () => {
-  let component: Component;
+  let provider: Component;
+  let component: CommentBox;
   let jqElement: JQueryExtended;
 
   beforeEach(() => {
-    component = renderComponent(CommentBox);
-    jqElement = jqComponent(component);
+    const componentMeta = renderComponent(CommentBox);
+    provider = componentMeta.component;
+    component = componentMeta.testInstance as CommentBox;
+    jqElement = componentMeta.jqElement;
   });
 
   it('has the correct class', () => {

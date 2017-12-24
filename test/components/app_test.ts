@@ -5,16 +5,23 @@ import { JQueryExtended } from '../types';
 
 // Use 'describe' to group together similar tests
 describe('App', () => {
-  let component: Component;
+  let provider: Component;
+  let component: App;
   let jqElement: JQueryExtended;
 
   beforeEach(() => {
-    component = renderComponent(App);
-    jqElement = jqComponent(component);
+    const componentMeta = renderComponent(App);
+    provider = componentMeta.component;
+    component = componentMeta.testInstance as App;
+    jqElement = componentMeta.jqElement;
   });
 
   it('shows a comment box', () => {
     expect(jqElement.find('.comment-box')).to.exist;
+  });
+
+  it('should show the correct test', () => {
+    expect(component.testMe()).to.equal('my test string');
   });
 
   it('shows a comment list', () => {

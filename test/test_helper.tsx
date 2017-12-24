@@ -4,7 +4,9 @@ const expect = chai.expect;
 const chaiJquery = require('chai-jquery');
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as TestUtils from 'react-addons-test-utils';
+import * as ReactTestUtils from 'react-dom/test-utils';
+import * as TestRenderer from 'react-test-renderer';
+import { createRenderer } from 'react-test-renderer/shallow';
 import * as jsdom from 'jsdom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -16,14 +18,29 @@ import { ComponentElement } from 'react';
 
 chaiJquery(chai, chai['util'], _$);
 
-function renderComponent<T>(ComponentClass, props = {}, state = {}): React.Component {
-  const componentInstance = TestUtils.renderIntoDocument(
-    <Provider store={createStore(reducers, state)}>
-      <ComponentClass {...props} />
-    </Provider>
+function renderComponent<T extends React.Component>(
+  ComponentClass,
+  props = {},
+  state = {}
+): {
+  component: React.Component;
+  testInstance: T;
+  jqElement: JQueryExtended;
+} {
+  const el = <ComponentClass {...props} />;
+
+  const componentInstance = ReactTestUtils.renderIntoDocument(
+    <Provider store={createStore(reducers, state)}>{el}</Provider>
   ) as React.Component;
 
-  return componentInstance;
+  const testRenderer = TestRenderer.create(el);
+  const testInstance = testRenderer.getInstance();
+
+  return {
+    component: componentInstance,
+    testInstance: testInstance,
+    jqElement: jqComponent(componentInstance),
+  };
 }
 
 const jqComponent = (component): JQueryExtended => {
@@ -34,7 +51,7 @@ _$.fn['simulate'] = function(eventName, value) {
   if (value) {
     this.val(value);
   }
-  TestUtils.Simulate[eventName](this[0]);
+  ReactTestUtils.Simulate[eventName](this[0]);
 };
 
 export { renderComponent, jqComponent, expect };
