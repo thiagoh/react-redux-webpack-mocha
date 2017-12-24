@@ -12,8 +12,8 @@ describe('CommentBox', () => {
 
   beforeEach(() => {
     const componentMeta = renderComponent(CommentBox);
-    provider = componentMeta.component;
-    component = componentMeta.testInstance as CommentBox;
+    provider = componentMeta.component as Component;
+    component = componentMeta.instance as CommentBox;
     jqElement = componentMeta.jqElement;
   });
 

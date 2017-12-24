@@ -11,8 +11,8 @@ describe('App', () => {
 
   beforeEach(() => {
     const componentMeta = renderComponent(App);
-    provider = componentMeta.component;
-    component = componentMeta.testInstance as App;
+    provider = componentMeta.component as Component;
+    component = componentMeta.instance as App;
     jqElement = componentMeta.jqElement;
   });
 

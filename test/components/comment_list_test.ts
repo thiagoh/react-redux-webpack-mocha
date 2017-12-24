@@ -13,9 +13,13 @@ describe('CommentList', () => {
   beforeEach(() => {
     const props = { comments: ['New Comment', 'Other new comment'] };
     const componentMeta = renderComponent(ConnectedCommentList, null, props);
-    provider = componentMeta.component;
-    component = componentMeta.testInstance as CommentList;
+    provider = componentMeta.component as Component;
+    component = componentMeta.instance as CommentList;
     jqElement = componentMeta.jqElement;
+  });
+
+  it('has the correct class', () => {
+    expect(component.renderComments).to.exist;
   });
 
   it('has the correct class', () => {

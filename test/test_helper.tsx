@@ -3,46 +3,74 @@ import * as chai from 'chai';
 const expect = chai.expect;
 const chaiJquery = require('chai-jquery');
 import * as React from 'react';
+import { ComponentElement, ReactElement } from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactTestUtils from 'react-dom/test-utils';
+import * as createReactClass from 'create-react-class';
 import * as TestRenderer from 'react-test-renderer';
 import { createRenderer } from 'react-test-renderer/shallow';
 import * as jsdom from 'jsdom';
-import { Provider } from 'react-redux';
+import { Provider, connect, Connect } from 'react-redux';
 import { createStore } from 'redux';
 
 import { window } from './setup';
 import { JQueryExtended } from './types';
 import reducers from '../src/reducers';
-import { ComponentElement } from 'react';
-import { FunctionalComponent } from '../src/types';
 
 chaiJquery(chai, chai['util'], _$);
 
-function renderComponent<T extends React.Component | FunctionalComponent>(
+function renderComponent<T extends React.Component>(
   ComponentClass,
   props = {},
   state = {}
 ): {
-  component: React.Component;
-  testInstance: T | FunctionalComponent;
+  component: React.Component | ReactElement<any>;
+  instance: T;
   jqElement: JQueryExtended;
 } {
-  const el = (
-    <Provider store={createStore(reducers, state)}>
-      <ComponentClass {...props} />
-    </Provider>
-  );
-  const componentInstance = ReactTestUtils.renderIntoDocument(el) as React.Component;
+  // console.log(ComponentClass.WrappedComponent);
+  let componentInstance: React.Component | ReactElement<any>;
+  let instance: T;
+  let jqElement: JQueryExtended;
 
-  const testRenderer = TestRenderer.create(el);
-  const testInstance = testRenderer.getInstance();
-  console.log('testInstance', Object.keys(testInstance));
+  const functional = Object.keys(ComponentClass.prototype).length <= 0;
+  const reduxComponent = typeof ComponentClass.WrappedComponent !== 'undefined';
+  if (functional) {
+    // in order to use `ReactTestUtils.renderIntoDocument` we need a class component
+    const Clazz = createReactClass({
+      render: () => {
+        return <ComponentClass {...props} />;
+      },
+    });
+
+    componentInstance = ReactTestUtils.renderIntoDocument(<Clazz />) as React.Component;
+    instance = componentInstance as T;
+  } else if (reduxComponent) {
+    // class components
+    const Clazz = createReactClass({
+      render: () => {
+        return (
+          <Provider store={createStore(reducers, state)}>
+            <ComponentClass ref="selector" {...props} />
+          </Provider>
+        );
+      },
+    });
+
+    componentInstance = ReactTestUtils.renderIntoDocument(<Clazz />) as React.Component;
+    instance = (componentInstance as React.Component).refs['selector']['wrappedInstance'] as T;
+  } else {
+    componentInstance = ReactTestUtils.renderIntoDocument(<ComponentClass {...props} />) as React.Component;
+    componentInstance.setState(state);
+    instance = componentInstance as T;
+  }
+
+  // console.log('aaaaaaaa', typeof (componentInstance.refs['selector']['wrappedInstance'] || {}).renderComments);
 
   return {
     component: componentInstance,
-    testInstance: testInstance,
     jqElement: jqComponent(componentInstance),
+    instance: instance,
   };
 }
 

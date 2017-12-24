@@ -19,8 +19,7 @@ export class CommentList extends React.Component<{ comments?: string[] }, {}> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log(state);
   return { comments: state.comments };
 };
 
-export const ConnectedCommentList = connect(mapStateToProps, actions)(CommentList);
+export const ConnectedCommentList = connect(mapStateToProps, actions, null, { withRef: true })(CommentList);
