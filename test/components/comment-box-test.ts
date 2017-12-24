@@ -11,7 +11,7 @@ describe('CommentBox', () => {
   let jqElement: JQueryExtended;
 
   beforeEach(() => {
-    const componentMeta = renderComponent(CommentBox);
+    const componentMeta = renderComponent(ConnectedCommentBox);
     provider = componentMeta.component as Component;
     component = componentMeta.instance as CommentBox;
     jqElement = componentMeta.jqElement;

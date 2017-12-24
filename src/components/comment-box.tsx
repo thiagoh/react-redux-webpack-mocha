@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { connect, Connect } from 'react-redux';
-import * as actions from '../actions';
+import { saveComment } from '../actions';
+import { bindActionCreators } from 'redux';
 
-export class CommentBox extends Component<{}, { comment: string }> {
+declare type P = { saveComment?: typeof saveComment };
+declare type S = { comment: string };
+
+export class CommentBox extends Component<P, S> {
   constructor(props) {
     super(props);
     this.state = { comment: '' };
@@ -16,7 +20,7 @@ export class CommentBox extends Component<{}, { comment: string }> {
   public handleSubmit(event) {
     event.preventDefault();
 
-    // this.props.saveComment(this.state.comment);
+    this.props.saveComment(this.state.comment);
     this.setState({ comment: '' });
   }
 
@@ -33,4 +37,9 @@ export class CommentBox extends Component<{}, { comment: string }> {
   }
 }
 
-export const ConnectedCommentBox = connect(null, actions)(CommentBox);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return bindActionCreators({ saveComment }, dispatch);
+};
+
+export const ConnectedCommentBox = connect(null, mapDispatchToProps)(CommentBox);
+// export const ConnectedCommentBox = connect(null, { saveComment })(CommentBox);
