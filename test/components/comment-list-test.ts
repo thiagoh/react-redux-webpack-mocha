@@ -1,19 +1,19 @@
 import { Component } from 'react';
 import { Provider } from 'react-redux';
 import { renderComponent, jqComponent, expect } from '../test-helper';
-import { CommentList, ConnectedCommentList } from '../../src/components/comment-list';
+import { CommentList, CommentListImpl } from '../../src/components/comment-list';
 import { JQueryExtended } from '../types';
 
 describe('CommentList', () => {
   let provider: Component;
-  let component: CommentList;
+  let component: CommentListImpl;
   let jqElement: JQueryExtended;
 
   beforeEach(() => {
     const props = { comments: ['New Comment', 'Other new comment'] };
-    const componentMeta = renderComponent(ConnectedCommentList, null, props);
+    const componentMeta = renderComponent(CommentList, null, props);
     provider = componentMeta.component as Component;
-    component = componentMeta.instance as CommentList;
+    component = componentMeta.instance as CommentListImpl;
     jqElement = componentMeta.jqElement;
   });
 

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 declare type P = { saveComment?: typeof saveComment };
 declare type S = { comment: string };
 
-export class CommentBox extends Component<P, S> {
+export class CommentBoxImpl extends Component<P, S> {
   constructor(props) {
     super(props);
     this.state = { comment: '' };
@@ -41,5 +41,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({ saveComment }, dispatch);
 };
 
-export const ConnectedCommentBox = connect(null, mapDispatchToProps)(CommentBox);
-// export const ConnectedCommentBox = connect(null, { saveComment })(CommentBox);
+export const CommentBox = connect(null, mapDispatchToProps)(CommentBoxImpl);
+// export const ConnectedCommentBox = connect(null, { saveComment })(CommentBoxImpl);

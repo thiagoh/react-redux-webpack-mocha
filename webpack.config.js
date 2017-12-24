@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     vendor: ['./src/vendor.ts'],
     polyfills: ['babel-polyfill', './src/polyfills.ts'],
-    app: './src/index.js',
+    app: './src/index.tsx',
   },
   output: {
     path: __dirname + '/build',

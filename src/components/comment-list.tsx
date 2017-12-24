@@ -7,7 +7,7 @@ import { saveComment } from '../actions';
 import { FunctionalComponent } from '../types';
 import { bindActionCreators } from 'redux';
 
-export class CommentList extends React.Component<{ comments?: string[] }, {}> {
+export class CommentListImpl extends React.Component<{ comments?: string[] }, {}> {
   renderComments() {
     if (!this.props.comments) {
       return;
@@ -28,4 +28,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({ saveComment }, dispatch);
 };
 
-export const ConnectedCommentList = connect(mapStateToProps, mapDispatchToProps, null, getWithRef(true))(CommentList);
+export const CommentList = connect(mapStateToProps, mapDispatchToProps, null, getWithRef(true))(CommentListImpl);
