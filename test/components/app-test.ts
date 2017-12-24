@@ -1,18 +1,18 @@
-import { renderComponent, jqComponent, expect } from '../test-helper';
-import App from '../../src/components/app';
 import { Component } from 'react';
+import { renderComponent, jqComponent, expect } from '../test-helper';
+import { App, AppImpl } from '../../src/components/app';
 import { JQueryExtended } from '../types';
 
 // Use 'describe' to group together similar tests
 describe('App', () => {
   let provider: Component;
-  let component: App;
+  let component: AppImpl;
   let jqElement: JQueryExtended;
 
   beforeEach(() => {
-    const componentMeta = renderComponent(App);
+    const componentMeta = renderComponent(App, null, {});
     provider = componentMeta.component as Component;
-    component = componentMeta.instance as App;
+    component = componentMeta.instance as AppImpl;
     jqElement = componentMeta.jqElement;
   });
 
@@ -21,6 +21,7 @@ describe('App', () => {
   });
 
   it('should show the correct test string', () => {
+    expect(component.testMe).to.exist;
     expect(component.testMe()).to.equal('my test string');
   });
 

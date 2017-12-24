@@ -2,8 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import { CommentBox } from './comment-box';
 import { CommentList } from './comment-list';
+import { connect } from 'react-redux';
+import { getWithRef } from '../utils/connect-options';
 
-export default class App extends Component {
+export class AppImpl extends React.Component<{}, {}> {
   testMe() {
     return 'my test string';
   }
@@ -17,3 +19,5 @@ export default class App extends Component {
     );
   }
 }
+
+export const App = connect(null, null, null, getWithRef(true))(AppImpl);

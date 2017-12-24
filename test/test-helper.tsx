@@ -46,6 +46,7 @@ function renderComponent<T extends React.Component>(
     componentInstance = ReactTestUtils.renderIntoDocument(<Clazz />) as React.Component;
     instance = componentInstance as T;
   } else if (reduxComponent) {
+    // console.log('ComponentClass', ComponentClass);
     // class components
     const Clazz = createReactClass({
       render: () => {

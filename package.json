@@ -17,6 +17,7 @@
     "@types/chai": "^4.0.10",
     "@types/chai-jquery": "^1.1.35",
     "@types/core-js": "^0.9.43",
+    "@types/create-react-class": "^15.6.0",
     "@types/jasmine": "^2.8.2",
     "@types/jquery": "^3.2.17",
     "@types/mocha": "^2.2.45",
@@ -48,7 +49,6 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "@types/create-react-class": "^15.6.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-stage-1": "^6.1.18",
     "create-react-class": "^15.6.2",

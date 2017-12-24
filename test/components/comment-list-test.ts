@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { Provider } from 'react-redux';
 import { renderComponent, jqComponent, expect } from '../test-helper';
 import { CommentList, CommentListImpl } from '../../src/components/comment-list';
 import { JQueryExtended } from '../types';
