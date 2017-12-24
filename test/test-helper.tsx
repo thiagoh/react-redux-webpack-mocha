@@ -1,7 +1,3 @@
-import * as _$ from 'jquery';
-import * as chai from 'chai';
-const expect = chai.expect;
-const chaiJquery = require('chai-jquery');
 import * as React from 'react';
 import { ComponentElement, ReactElement } from 'react';
 import * as ReactDOM from 'react-dom';
@@ -9,15 +5,18 @@ import * as ReactTestUtils from 'react-dom/test-utils';
 import * as createReactClass from 'create-react-class';
 import * as TestRenderer from 'react-test-renderer';
 import { createRenderer } from 'react-test-renderer/shallow';
-import * as jsdom from 'jsdom';
 import { Provider, connect, Connect } from 'react-redux';
 import { createStore } from 'redux';
-
-import { window } from './setup';
+import { window, $ } from './setup';
+import * as chai from 'chai';
+const expect = chai.expect;
+const chaiJquery = require('chai-jquery');
 import { JQueryExtended } from './types';
 import reducers from '../src/reducers';
+import * as _$ from 'jquery';
+declare type jq = typeof _$;
 
-chaiJquery(chai, chai['util'], _$);
+chaiJquery(chai, chai['util'], $);
 
 function renderComponent<T extends React.Component>(
   ComponentClass,
@@ -76,10 +75,10 @@ function renderComponent<T extends React.Component>(
 }
 
 const jqComponent = (component): JQueryExtended => {
-  return _$(ReactDOM.findDOMNode(component)) as JQueryExtended;
+  return $(ReactDOM.findDOMNode(component)) as JQueryExtended;
 };
 
-_$.fn['simulate'] = function(eventName, value) {
+$.fn['simulate'] = function(eventName, value) {
   if (value) {
     this.val(value);
   }
