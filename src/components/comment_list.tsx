@@ -1,25 +1,26 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { connect, Connect } from 'react-redux';
+import { connect } from 'react-redux';
+
 import * as actions from '../actions';
+import { FunctionalComponent } from '../types';
 
-export class CommentList extends Component<{}, {}> {
-  constructor(props) {
-    super(props);
-    this.state = { comment: '' };
-  }
-
-  commentMethod() {
-    return 'my first comment';
+export class CommentList extends React.Component<{ comments?: string[] }, {}> {
+  renderComments() {
+    if (!this.props.comments) {
+      return;
+    }
+    return this.props.comments.map(comment => <li key={comment}>{comment}</li>);
   }
 
   render() {
-    return (
-      <div>
-        <button type="submit">Submit Comment</button>
-      </div>
-    );
+    return <ul className="comment-list">{this.renderComments()}</ul>;
   }
 }
 
-export const ConnectedCommentList = connect(null, actions)(CommentList);
+const mapStateToProps = (state, ownProps) => {
+  // console.log(state);
+  return { comments: state.comments };
+};
+
+export const ConnectedCommentList = connect(mapStateToProps, actions)(CommentList);

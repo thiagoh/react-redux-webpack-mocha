@@ -15,26 +15,29 @@ import { window } from './setup';
 import { JQueryExtended } from './types';
 import reducers from '../src/reducers';
 import { ComponentElement } from 'react';
+import { FunctionalComponent } from '../src/types';
 
 chaiJquery(chai, chai['util'], _$);
 
-function renderComponent<T extends React.Component>(
+function renderComponent<T extends React.Component | FunctionalComponent>(
   ComponentClass,
   props = {},
   state = {}
 ): {
   component: React.Component;
-  testInstance: T;
+  testInstance: T | FunctionalComponent;
   jqElement: JQueryExtended;
 } {
-  const el = <ComponentClass {...props} />;
-
-  const componentInstance = ReactTestUtils.renderIntoDocument(
-    <Provider store={createStore(reducers, state)}>{el}</Provider>
-  ) as React.Component;
+  const el = (
+    <Provider store={createStore(reducers, state)}>
+      <ComponentClass {...props} />
+    </Provider>
+  );
+  const componentInstance = ReactTestUtils.renderIntoDocument(el) as React.Component;
 
   const testRenderer = TestRenderer.create(el);
   const testInstance = testRenderer.getInstance();
+  console.log('testInstance', Object.keys(testInstance));
 
   return {
     component: componentInstance,

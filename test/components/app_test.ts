@@ -20,11 +20,11 @@ describe('App', () => {
     expect(jqElement.find('.comment-box')).to.exist;
   });
 
-  it('should show the correct test', () => {
+  it('should show the correct test string', () => {
     expect(component.testMe()).to.equal('my test string');
   });
 
   it('shows a comment list', () => {
-    // expect(jqElement.find('.comment-list')).to.exist;
+    expect(jqElement.find('.comment-list')).to.exist;
   });
 });
