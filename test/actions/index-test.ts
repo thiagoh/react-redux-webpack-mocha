@@ -1,4 +1,4 @@
-import { renderComponent, jqComponent, expect } from '../test_helper';
+import { renderComponent, jqComponent, expect } from '../test-helper';
 
 describe('Actions', () => {
   describe('saveComment', () => {

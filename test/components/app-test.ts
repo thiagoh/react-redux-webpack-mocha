@@ -1,4 +1,4 @@
-import { renderComponent, jqComponent, expect } from '../test_helper';
+import { renderComponent, jqComponent, expect } from '../test-helper';
 import App from '../../src/components/app';
 import { Component } from 'react';
 import { JQueryExtended } from '../types';

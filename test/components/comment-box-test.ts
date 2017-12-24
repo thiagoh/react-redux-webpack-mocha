@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { Provider } from 'react-redux';
-import { renderComponent, jqComponent, expect } from '../test_helper';
-import { CommentBox, ConnectedCommentBox } from '../../src/components/comment_box';
-import * as c from '../../src/components/comment_box';
+import { renderComponent, jqComponent, expect } from '../test-helper';
+import { CommentBox, ConnectedCommentBox } from '../../src/components/comment-box';
+import * as c from '../../src/components/comment-box';
 import { JQueryExtended } from '../types';
 
 describe('CommentBox', () => {

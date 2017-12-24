@@ -1,9 +1,9 @@
 import { Component, ReactElement } from 'react';
 import { Provider } from 'react-redux';
-import { renderComponent, jqComponent, expect } from '../test_helper';
+import { renderComponent, jqComponent, expect } from '../test-helper';
 import { JQueryExtended } from '../types';
 import { FunctionalComponent } from '../../src/types';
-import { CommentStaticList } from '../../src/components/comment_static_list';
+import { CommentStaticList } from '../../src/components/comment-static-list';
 
 describe('CommentStaticList', () => {
   let provider: ReactElement<{}>;

@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf build && webpack --display-error-details --progress --config ./webpack.config.js",
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config ./webpack.config.js",
-    "test:old": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test:old": "mocha --compilers js:babel-core/register --require ./test/test-helper.js --recursive ./test",
     "test": "mocha-webpack --full-trace --require ./test/setup.js --webpack-config webpack.config.test.js",
     "test:watch": "npm run test -- --watch"
   },
