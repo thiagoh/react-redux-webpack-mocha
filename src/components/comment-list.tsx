@@ -2,8 +2,10 @@ import * as React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
+import { getWithRef } from '../utils/connect-options';
+import { saveComment } from '../actions';
 import { FunctionalComponent } from '../types';
+import { bindActionCreators } from 'redux';
 
 export class CommentList extends React.Component<{ comments?: string[] }, {}> {
   renderComments() {
@@ -22,4 +24,8 @@ const mapStateToProps = (state, ownProps) => {
   return { comments: state.comments };
 };
 
-export const ConnectedCommentList = connect(mapStateToProps, actions, null, { withRef: true })(CommentList);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return bindActionCreators({ saveComment }, dispatch);
+};
+
+export const ConnectedCommentList = connect(mapStateToProps, mapDispatchToProps, null, getWithRef(true))(CommentList);
