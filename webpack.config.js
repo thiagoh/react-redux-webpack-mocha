@@ -63,4 +63,8 @@ module.exports = {
       template: './template.html',
     }),
   ],
+  devServer: {
+    historyApiFallback: true,
+    contentBase: './',
+  },
 };
