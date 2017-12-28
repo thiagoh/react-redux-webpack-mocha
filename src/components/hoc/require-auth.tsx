@@ -6,12 +6,17 @@ import * as createReactClass from 'create-react-class';
 
 export const requireAuthComponentClass = (ComposedComponent): ComponentClass => {
   const RequireAuth = createReactClass({
-    render: () => {
+    render: function() {
+      console.log(this.props.authenticated);
       return <ComposedComponent {...this.props} />;
     },
   });
 
-  return RequireAuth;
+  const mapStateToProps = (state, ownProps) => {
+    return { authenticated: state.authenticated };
+  };
+
+  return connect(mapStateToProps, null)(RequireAuth);
 };
 
 export const requireAuthComponentElement = (ComposedComponent): JSX.Element => {
