@@ -17,6 +17,7 @@ export class AppImpl extends React.Component<{}, {}> {
     return (
       <div>
         <Header />
+        {/* {this.props.children} */}
       </div>
     );
   }

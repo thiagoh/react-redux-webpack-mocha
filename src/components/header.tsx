@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { connect, Connect } from 'react-redux';
-import { saveComment } from '../actions';
+import { authenticate } from '../actions';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-declare type P = {};
+
+declare type P = { authenticated?: boolean; authenticate: typeof authenticate };
 declare type S = {};
 
 export class HeaderImpl extends Component<P, S> {
@@ -14,7 +15,10 @@ export class HeaderImpl extends Component<P, S> {
   }
 
   authButton() {
-    return <button>Sign In</button>;
+    if (this.props.authenticated) {
+      return <button onClick={() => this.props.authenticate(false)}>Sign Out</button>;
+    }
+    return <button onClick={() => this.props.authenticate(true)}>Sign In</button>;
   }
 
   render() {
@@ -37,8 +41,12 @@ export class HeaderImpl extends Component<P, S> {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return bindActionCreators({}, dispatch);
+const mapStateToProps = (state, ownProps) => {
+  return { authenticated: state.authenticated };
 };
 
-export const Header = connect(null, mapDispatchToProps)(HeaderImpl);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return bindActionCreators({ authenticate }, dispatch);
+};
+
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderImpl);

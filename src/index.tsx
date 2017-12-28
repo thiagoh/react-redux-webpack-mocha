@@ -18,9 +18,30 @@ ReactDOM.render(
     <Router>
       <div>
         <App />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/new" component={CommentBox} />
-        <Route exact path="/resources" component={CommentList} />
+        <Route
+          exact
+          path="/"
+          component={({ match }) => {
+            console.log('nha1', match);
+            return <Home />;
+          }}
+        />
+        <Route
+          exact
+          path="/new"
+          component={({ match }) => {
+            console.log('nha2', match);
+            return <CommentBox />;
+          }}
+        />
+        <Route
+          exact
+          path="/resources"
+          component={({ match }) => {
+            console.log('nha3', match);
+            return <CommentList />;
+          }}
+        />
       </div>
     </Router>
   </Provider>,
