@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { connect, Connect } from 'react-redux';
 import { saveComment } from '../actions';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 declare type P = {};
 declare type S = {};
 
