@@ -8,31 +8,37 @@ import { History, Location } from 'history';
 
 import * as createReactClass from 'create-react-class';
 
+declare type P = {
+  authenticated: boolean;
+  history: History;
+  match: match<{}>;
+  location: Location;
+};
+declare type S = {};
 export const requireAuthComponentClass = (ComposedComponent): ComponentClass => {
-  const RequireAuth = createReactClass({
+  const RequireAuth = createReactClass<P, S>({
     propTypes: {
       match: PropTypes.object.isRequired,
       location: PropTypes.object.isRequired,
       history: PropTypes.object.isRequired,
     },
-    checkAuthentication: function(history: History) {
-      console.log('is authenticated', this.props.authenticated);
-      console.log('history', history);
-      if (!this.props.authenticated) {
-        history.push('/');
+    checkAuthentication: function(props: Readonly<P>) {
+      console.log('is authenticated', props.authenticated);
+      console.log('history', props.history);
+      if (!props.authenticated) {
+        props.history.push('/');
       }
     },
-    componentDidUpdate: function(prevProps: Readonly<{}>, prevState: Readonly<{}>, prevContext: any) {
-      const history: History = this.props.history;
-      this.checkAuthentication(history);
+    componentWillUpdate: function(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any) {
+      this.checkAuthentication(nextProps);
     },
     componentWillMount: function() {
-      const match: match<{}> = this.props.match;
-      const location: Location = this.props.location;
+      const { match, location, history } = this.props;
       console.log('match,', match);
       console.log('location, ', location);
-      const history: History = this.props.history;
-      this.checkAuthentication(history);
+      console.log('history', history);
+
+      this.checkAuthentication(this.props);
     },
     render: function() {
       return <ComposedComponent {...this.props} />;
