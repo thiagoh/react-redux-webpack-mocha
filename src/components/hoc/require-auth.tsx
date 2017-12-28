@@ -15,6 +15,8 @@ export const requireAuthComponentClass = (ComposedComponent): ComponentClass => 
 };
 
 export const requireAuthComponentElement = (ComposedComponent): JSX.Element => {
-  const RequireAuth = requireAuthComponentClass(ComposedComponent);
-  return <RequireAuth />;
+  // const RequireAuth = requireAuthComponentClass(ComposedComponent);
+  // return <RequireAuth />;
+  // OR
+  return React.createElement(requireAuthComponentClass(ComposedComponent));
 };
