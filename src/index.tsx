@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Home } from './components/home';
 import { CommentBox } from './components/comment-box';
 import { CommentList } from './components/comment-list';
+import { requireAuthComponentElement } from './components/hoc/require-auth';
 
 import { App } from './components/app';
 import reducers from './reducers';
@@ -39,7 +40,7 @@ ReactDOM.render(
           path="/resources"
           component={({ match }) => {
             console.log('nha3', match);
-            return <CommentList />;
+            return requireAuthComponentElement(CommentList);
           }}
         />
       </div>
